@@ -531,17 +531,17 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
-  // let res = [];
-  // res2 = arr.map((x) => {
-  //   if (!res.indexOf(x) === -1) {
-  //     res.push(x);
-  //   }
-  //   return res;
-  // });
-  // return res2;
+function distinct(arr) {
+  const res = [];
+  arr.map((x) => {
+    if (res.indexOf(x) === -1) {
+      res.push(x);
+    }
+    return res;
+  });
+  return res;
 }
+
 
 /**
  * Groups elements of the specified array by key.
@@ -591,8 +591,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 
@@ -608,8 +608,8 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((sum, item) => sum[item], arr);
 }
 
 
@@ -631,8 +631,24 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length % 2 === 0) {
+    const res = arr.length / 2;
+    const res2 = arr.slice(0, res);
+    arr.splice(0, res);
+    arr.splice(arr.length, 0, ...res2);
+    return arr;
+  }
+
+  const res3 = Math.floor(arr.length / 2);
+  const res4 = arr.slice(0, res3);
+  const res5 = arr.slice(res3 + 1, arr.length);
+
+  arr.splice(0, res3);
+  arr.splice(1, arr.length - 1);
+  arr.splice(0, 0, ...res5);
+  arr.splice(arr.length, 0, ...res4);
+  return arr;
 }
 
 
